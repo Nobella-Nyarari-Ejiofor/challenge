@@ -21,12 +21,12 @@ Explain how to use your project.
 
 ## Setting up a CI/CD Pipeline
 ### 1. How I would go about it 
-Depending on the application code language and the target platform for the pipeline, technologies and procedures to be used can be analyzed. I would ensure the availability of an existing and updated application code in a version control system ie Github or GitLab for the first step of my pipeline . 
+Depending on the application code language and the target platform for the pipeline, technologies and procedures to be used can be analyzed. I would ensure the availability of an existing and updated application source code in a version control system ie Github or GitLab for the first step of my pipeline . 
 
 ### 2. Approach taken 
 The use of containerization in the pipeline if k8s is our target platform .
 Use of docker agents in Jenkins  as the worker nodes to save costs and workloads . 
-Use of ArgoCD and Argo Image Adapter deployed as controllers on k8s cluster inline with trending GitOps tools. 
+Use of ArgoCD and Argo Image Adapter deployed as controllers on k8s cluster inline with effecient GitOps tools. 
 
 ### 3. Implementation of the approach .
 
