@@ -11,19 +11,15 @@
 
 
 
-## Installation
+## Setting up a Highly Available K8s Cluster
 
 Include installation instructions here.
 
-## Usage
+## Setting up a big-data streaming data service
 
 Explain how to use your project.
 
-## Configuration
-
-Details about configuration options and settings.
-
-## Contributing
+## Setting up a CI/CD Pipeline
 
 Guidelines for contributing to the project.
 
