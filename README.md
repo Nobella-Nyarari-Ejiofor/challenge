@@ -2,10 +2,10 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Setting up a Highly Available K8s Cluster](#k8scluster)
-3. [Setting up a big-data streaming data service](#big-data)
-4. [Setting up a CI/CD Pipeline](#pipeline)
-6. [License](#license)
+2. [Setting up a Highly Available K8s Cluster](#setting-up-a-highly-available-k8s-cluster)
+3. [Setting up a big-data streaming data service](#setting-up-a-big-data-streaming-data-service)
+4. [Setting up a CI/CD Pipeline](#setting-up-a-cicd-pipeline)
+5. [License](#license)
 
 # Introduction
 I'm elated to take on this challenge as part of the interview process. All feedback and suggestions will be highly appreciated . 
