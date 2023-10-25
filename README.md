@@ -29,7 +29,7 @@ On Bare Metal.
 5. AWS Image buillder service can build new images from basic images.  
 6. Deploying base images to AWS. 
 
-![K8s configuration image](./Images/k8scluster.png)
+![K8s configuration image](./Images/k8sclusterr.png)
 
 ### Load balancing 
 On both load balancers(two different servers or using static ports on the master nodes ): update the system, and install Haproxy and Keepalived on both. In a round-robin load-balancing technique. On both load balancers : 
