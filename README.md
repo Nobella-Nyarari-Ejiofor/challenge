@@ -118,8 +118,8 @@ These steps are written in the Jenkins pipeline using a declarative approach as 
 The continuous delivery starts from the updated K8s helm charts which are pushed to the helm charts repository by Argo Image Updator. In our k8s cluster , Argo Image Adaptor and ARgoCD can be deployed as controllers. Argo Image Updator will listen to our container registry and if any  changes are made, it will update our helm charts repository. ArgoCD will listen for any changes in the Helm charts repository and push the changes to Kubernetes.
 
 # My Articles
-I love documenting new things I learn in the DevOps Tech Space.
-Some of my articles :
+I love documenting new things I learn in the DevOps Tech Space.<br>
+Some of my articles :<br>
      [AWS Security with ACLs and Security Groups](https://cool-tech.hashnode.dev/aws-security-groups-and-nacl-diving-into-the-depths-of-aws-security) <br>
      [Docker Multi Stage Build](https://cool-tech.hashnode.dev/docker-multi-stage-build)
 
