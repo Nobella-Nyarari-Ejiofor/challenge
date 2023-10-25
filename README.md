@@ -67,8 +67,21 @@ Kibana - A web interface to visualize and explore log data stored in Elasticsear
 
 
 ## Setting up a big-data streaming data service
-
-Explain how to use your project.
+Airflow would enter the picture to coordinate the whole data pipeline. This implies that the NiFi and Spark Streaming operations would be scheduled and managed by Airflow.
+### The data pipeline
+1. The data pipeline would be defined by the directed acyclic graph (DAG) that Airflow would produce. The NiFi and Spark Streaming operations, together with the dependencies between them, would be specified in the DAG.
+2. The DAG would then be scheduled by Airflow to execute on a regular basis.
+3. The NiFi and Spark Streaming workflows are started by Airflow when the DAG runs.
+    NiFi Process:
+    After obtaining information from transactional  databases A and  B , analytical database B and C , NiFi modifies and purges it before publishing it to Kafka topics  V and W , X and Y respectively.
+    
+    Spark Process:
+    Applications for Spark streaming take in data from Kafka topics Vand W , X and Y, analyze it in real time, and then publish the findings back to topics P and Q, R and S repectively .
+    
+    Data from Kafka topics P, Q, R  and Scan then be consumed by downstream applications or systems for additional processing or reporting.
+4. To make sure the NiFi and Spark Streaming workflows are operating properly, Airflow would keep an eye on them.
+In the event that the pipeline fails, Airflow will attempt the unsuccessful
+The data can then be stored into a data lake ie Amazon S3 , or a warehouse ie Amazon Redshift and more insights and analytics can be derived . For example using AMazon Athena and Amazon Quicksight to query and visualize data repectively . The data can be also be stored in a NoSQL database and can be queried from there .
 
 ## Setting up a CI/CD Pipeline
 ### 1. How I would go about it 
