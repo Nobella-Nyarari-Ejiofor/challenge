@@ -62,10 +62,10 @@ Automation  using Ansible or manually with low task loads on each server by conn
 Use of Zabbix monitoring. A separate server can be used as the Zabbix server. SNMP, and IPMI can send alerts to the Zabbix server without the need to deploy an agent. If need be, the Zabbix agent can be deployed on all the servers and the Zabbix server collects all the metrics on the servers in the cluster. Suppose more metrics are needed rather than the OS level. In that case, metrics from the BMC can be collected using external scripts ie  the Redfish plugin which collects metrics on the physical state of the server ie the temperature of the server.
 
 ### Centralized logging  with EFK
-EFK - Elastic search, Fluentd and Kibana.
-Elasticsearch - stores indexes and logs data.
-Fluentd - Log collector that collects and forwards logs to Elasticsearch.
-Kibana - A web interface to visualize and explore log data stored in Elasticsearch.
+EFK - Elastic search, Fluentd and Kibana.<br>
+Elasticsearch - stores indexes and logs data.<br>
+Fluentd - Log collector that collects and forwards logs to Elasticsearch.<br>
+Kibana - A web interface to visualize and explore log data stored in Elasticsearch.<br>
 
 
 # Setting up a big-data streaming data service
@@ -120,6 +120,6 @@ The continuous delivery starts from the updated K8s helm charts which are pushed
 # My Articles
 I love documenting new things I learn in the DevOps Tech Space.
 Some of my articles :
-     [AWS Security with ACLs and Security Groups](https://cool-tech.hashnode.dev/aws-security-groups-and-nacl-diving-into-the-depths-of-aws-security)
+     [AWS Security with ACLs and Security Groups](https://cool-tech.hashnode.dev/aws-security-groups-and-nacl-diving-into-the-depths-of-aws-security) <br>
      [Docker Multi Stage Build](https://cool-tech.hashnode.dev/docker-multi-stage-build)
 
