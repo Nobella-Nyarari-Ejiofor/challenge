@@ -1,53 +1,55 @@
 # Interintel Technologies DevOps Challenge - Nobella Nyarari Ejiofor
 
 ## Table of Contents
-1. [Introduction](#introduction)
+1. [Introduction](##introduction)
 2. [Setting up a Highly Available K8s Cluster](##k8scluster)
-3. [Setting up a big-data streaming data service](#big-data)
-4. [Setting up a CI/CD Pipeline](#pipeline)
-6. [License](#license)
+3. [Setting up a big-data streaming data service](##big-data)
+4. [Setting up a CI/CD Pipeline](##pipeline)
+6. [License](##license)
 
 ## Introduction
 I'm elated to take on this challenge as part of the interview process. All feedback and suggestions will be highly appreciated . 
 
 ## Setting up a Highly Available K8s Cluster
-On Bare Metal .
+On Bare Metal.
 
 ### Base image configuration.
 <u>On premises </u>
 1. Use of a minimal operating system and a SCM (Security Configuration Management) ie Ansible to automate the process of applying security configurations to your base images .
 2. Kubernetes labels on images to easen identification and management of images in the cluster.
-3. Regular updates on the image pull policy and base images to ensure images are upto date. 
-4. Scanning the image to get hold of any vulnerabilities before deploying to production .
-5. Proper configuration of the underlying OS Configurations - ie network configuration , file permissions and user configurations .
+3. Regular updates on the image pull policy and base images to ensure images are up to date. 
+4. Scanning the image to get hold of any vulnerabilities before deploying to production.
+5. Proper configuration of the underlying OS Configurations - ie network configuration, file permissions and user configurations .
 
 <u>AWS</u>
-1. Use of AWS Systems Manger parameter store - includes the parameters to configure security to the base image .
-2. Use of least priviledge on IAM to the access of base images . 
-3. AWS Manager State Manager Association - applies the parameters in the parameters group to the base image .
-4. State manager association - applies security configuration to base image .
-5. AWS Image buillder service can build new images from basic images .  
-6. Deploying base images to AWS . 
+1. Use of AWS Systems Manger parameter store - includes the parameters to configure security to the base image.
+2. Use of least privilege on IAM to access of  images. 
+3. AWS Manager State Manager Association - applies the parameters in the parameters group to the base image.
+4. State manager association - applies security configuration to base image.
+5. AWS Image buillder service can build new images from basic images.  
+6. Deploying base images to AWS. 
+
+![K8s configuration image](./Images/k8scluster.png)
 
 ### Load balancing 
-On both load balancers(two different servers or using static ports on the master nodes ): update system , install haproxy and keepalived on both . In a round robin load balancing technique . On both load balancers : 
+On both load balancers(two different servers or using static ports on the master nodes ): update the system, and install Haproxy and Keepalived on both. In a round-robin load-balancing technique. On both load balancers : 
 
 <u>Haproxy .</u>
 
 Creating a script to check if there is a connection to the master nodes from the load balancer. 
-Configuration of network interfaces - adding the virtual IP to the loadbalancers Network interfaces ie (eth1).
+Configuration of network interfaces - adding the virtual IP to the load balancers Network interfaces ie (eth1).
 Configure the check script as in my [ckeck_apiserver.sh](./keepalived/check_apiserver.sh).
 
 <u>In Haproxy.</u>
-Editing the haproxy file to listen to port 6443 on the load balancers , to use round robin technique , to balance traffic on the three master nodes by adding their hostnames and IP addresses . 
-Restarting the haproxy service . 
+Editing the Haproxy file to listen to port 6443 on the load balancers, using the round robin technique, to balance traffic on the three master nodes by adding their hostnames and IP addresses. 
+Restarting the Haproxy service. 
 
 ### Setting up K8s
-Automation  using ansible or manually with low task loads on each server by connecting to servers with ssh.
-- Upgrades , disabling swap in the /etc/fstab and disabling the firewalls. 
+Automation  using Ansible or manually with low task loads on each server by connecting to servers with ssh.
+- Upgrades, disabling swap in the /etc/fstab and disabling the firewalls. 
 - Setting the hostnames by updating host files to include all servers involved then  enabling and loading the kernel modules , add kernel settings .
-- Installation of k8s using container runtime , hence installation of  the runtime (containerd). 
-- Enabling the docker repository .
+- Installation of k8s using container runtime, hence installation of  the runtime (containerd). 
+- Enabling the docker repository.
 - Add k8s apt repository  then  Installation of kubeadm , kubectl and kubelet . 
 - Initialising the  kubernetes cluster.
      kubeadm init --control-plane-endpoint="{VIRTUAL_IP_ADDRESS}:6443" --upload-certs --apiserver-advertise-address={server/node-IP-address-master1} --pod-network-cidr={CIDR}
