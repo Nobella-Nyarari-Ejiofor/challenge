@@ -8,18 +8,18 @@
 5. [My Articles](#my-articles)
 
 # Introduction
-I'm elated to take on this challenge as part of the interview process. All feedback and suggestions will be highly appreciated . 
+I'm elated to take on this challenge as part of the interview process. All feedback and suggestions will be highly appreciated. 
 
 # Setting up a Highly Available K8s Cluster
 On Bare Metal.
 
 ### Base image configuration.
 <u>On premises </u>
-1. Use of a minimal operating system and a SCM (Security Configuration Management) ie Ansible to automate the process of applying security configurations to your base images .
-2. Kubernetes labels on images to easen identification and management of images in the cluster.
+1. Use of a minimal operating system and a SCM (Security Configuration Management) ie Ansible to automate the process of applying security configurations to the base images.
+2. Kubernetes labels on images to ease identification and management of images in the cluster.
 3. Regular updates on the image pull policy and base images to ensure images are up to date. 
 4. Scanning the image to get hold of any vulnerabilities before deploying to production.
-5. Proper configuration of the underlying OS Configurations - ie network configuration, file permissions and user configurations .
+5. Proper configuration of the underlying OS Configurations - ie network configuration, file permissions and user configurations.
 
 <u>AWS</u>
 1. Use of AWS Systems Manger parameter store - includes the parameters to configure security to the base image.
@@ -59,7 +59,7 @@ Automation  using Ansible or manually with low task loads on each server by conn
 - Verify cluster installation and high availability ie by rebooting one load balancer and checking if the virtual IP address is attached to the alternate load balancer  ie using: IP a s, or a journalctl of Keepalived. 
 
 ### Monitoring setup for servers
-Use of Zabbix monitoring. A separate server can be used as the Zabbix server. SNMP, and IPMI can send alerts to the Zabbix server without the need to deploy an agent. If need be, the Zabbix agent can be deployed on all the servers and the Zabbix server collects all the metrics on the servers in the cluster. Suppose more metrics are needed rather than the OS level. In that case, metrics from the BMC can be collected using external scripts ie  the Redfish plugin which collects metrics on the physical state of the server ie the temperature of the server. The logs can be sent to Grafana for detailed visualization. 
+Use of Zabbix monitoring. A separate server can be used as the Zabbix server. SNMP, and IPMI can send alerts to the Zabbix server without the need to deploy an agent. If need be, the Zabbix agent can be deployed on all the servers and the Zabbix server collects all the metrics on the servers in the cluster. Suppose more metrics are needed rather than the OS level. In that case, metrics from the BMC can be collected using external scripts ie  the Redfish plugin which collects metrics on the physical state of the server ie the temperature of the server. The logs can be sent to Grafana for detailed visualization using Zabbix plugins in Grafana. 
 
 ### Centralized logging  with EFK
 EFK - Elastic search, Fluentd and Kibana.<br>
@@ -84,8 +84,7 @@ Airflow would enter the picture to coordinate the whole data pipeline. This impl
     Applications for Spark streaming take in data from Kafka topics Vand W, X and Y, analyze it in real-time and then publish the findings back to topics P and Q, R and S respectively.<br> 
     Data from Kafka topics P, Q, R  and Scan then be consumed by downstream applications or systems for additional processing or reporting.
 4. To make sure the NiFi and Spark Streaming workflows are operating properly, Airflow would keep an eye on them.
-In the event that the pipeline fails, Airflow will attempt an unsuccessful
-The data can then be stored into a data lake ie Amazon S3, or a warehouse ie Amazon Redshift and more insights and analytics can be derived. For example, using Amazon Athena and Amazon Quicksight to query and visualize data respectively. The data can also be stored in a NoSQL database and can be queried from there.
+In the event that the pipeline fails, Airflow will attempt an unsuccessful to retry the failed tasks a specified number of times. If the tasks finally fails, Airflow will alert the related parties.
 
 ## Setting up a CI/CD Pipeline
 ### 1. How I would go about it 
