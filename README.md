@@ -48,7 +48,7 @@ Restarting the Haproxy service.
 Automation  using Ansible or manually with low task loads on each server by connecting to servers with ssh.
 - Upgrades, disabling swap in the /etc/fstab and disabling the firewalls. 
 - Setting the hostnames by updating host files to include all servers involved then  enabling and loading the kernel modules, add kernel settings.
-- Installation of k8s using container runtime, hence installation of  the runtime (containerd). 
+- Installation of k8s using container runtime, hence installation of  the runtime (containerd) and installation of docker for the use of Rancher to manage our EFK stack.
 - Enabling the docker repository.
 - Add k8s apt repository  then  Installation of kubeadm, kubectl and kubelet. 
 - Initialising the  Kubernetes cluster.
@@ -59,13 +59,16 @@ Automation  using Ansible or manually with low task loads on each server by conn
 - Verify cluster installation and high availability ie by rebooting one load balancer and checking if the virtual IP address is attached to the alternate load balancer  ie using: IP a s, or a journalctl of Keepalived. 
 
 ### Monitoring setup for servers
-Use of Zabbix monitoring. A separate server can be used as the Zabbix server. SNMP, and IPMI can send alerts to the Zabbix server without the need to deploy an agent. If need be, the Zabbix agent can be deployed on all the servers and the Zabbix server collects all the metrics on the servers in the cluster. Suppose more metrics are needed rather than the OS level. In that case, metrics from the BMC can be collected using external scripts ie  the Redfish plugin which collects metrics on the physical state of the server ie the temperature of the server.
+Use of Zabbix monitoring. A separate server can be used as the Zabbix server. SNMP, and IPMI can send alerts to the Zabbix server without the need to deploy an agent. If need be, the Zabbix agent can be deployed on all the servers and the Zabbix server collects all the metrics on the servers in the cluster. Suppose more metrics are needed rather than the OS level. In that case, metrics from the BMC can be collected using external scripts ie  the Redfish plugin which collects metrics on the physical state of the server ie the temperature of the server. The logs can be sent to Grafana for detailed visualization. 
 
 ### Centralized logging  with EFK
 EFK - Elastic search, Fluentd and Kibana.<br>
 Elasticsearch - stores indexes and logs data.<br>
-Fluentd - Log collector that collects and forwards logs to Elasticsearch.<br>
-Kibana - A web interface to visualize and explore log data stored in Elasticsearch.<br>
+Fluentdbit - Log collector that collects and forwards logs to Elasticsearch.<br>
+Kibana - A web interface to visualize and explore log data stored in Elasticsearch.<br> 
+#### Implementation of EFK
+Rancher can be used to manage Kubernetes and installation of EFK stack using Helm. Helm charts can deploy the EFK stack on the cluster. 
+Elastic search can be set up as a cluster with pods - stateful set due to the need for persistent data for logs, Kibana - a deployment with one replica and  Fluentbit(a lightweight logging shipper) as a daemon set, a pod on each worker node  and listens to the logs running on the pods. The EFK can be deployed on a different namespace specified in our helm installation. Rancher can be downloaded using docker and accessed using an IP address that is reachable from all the worker nodes in our cluster. On Rancher, I can launch a pre-defined Helm Chart for EFK. A storage class can be defined in the Rancher configuration if NFS was used in our cluster, Load balancer communication and Fluentbit in our Rancher configuration. The Kibana dashboard can be accessed from a NodePort and configuration of the cluster index can be done. Creation of a timestamp and index pattern can be done on Kubana and logs from the cluster, individual pods and various fields can be viewed and visualisations. A filter can be enabled on Kibana to fetch property-specific logs.   
 
 
 # Setting up a big-data streaming data service
@@ -75,11 +78,10 @@ Airflow would enter the picture to coordinate the whole data pipeline. This impl
 2. The DAG would then be scheduled by Airflow to execute on a regular basis.
 3. The NiFi and Spark Streaming workflows are started by Airflow when the DAG runs.
     NiFi Process:
-    After obtaining information from transactional  databases A and  B, and analytical databases B and C, NiFi modifies and purges it before publishing it to Kafka topics  V and W , X and Y respectively.
+    After obtaining information from transactional  databases A and  B, and analytical databases B and C, NiFi modifies and purges it before publishing it to Kafka topics  V and W, X and Y respectively.
     
-    Spark Process:
-    Applications for Spark streaming take in data from Kafka topics Vand W, X and Y, analyze it in real time, and then publish the findings back to topics P and Q, R and S repectively .
-    
+   Spark Process:
+    Applications for Spark streaming take in data from Kafka topics Vand W, X and Y, analyze it in real-time and then publish the findings back to topics P and Q, R and S respectively.<br> 
     Data from Kafka topics P, Q, R  and Scan then be consumed by downstream applications or systems for additional processing or reporting.
 4. To make sure the NiFi and Spark Streaming workflows are operating properly, Airflow would keep an eye on them.
 In the event that the pipeline fails, Airflow will attempt an unsuccessful
